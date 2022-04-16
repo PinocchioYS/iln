@@ -54,8 +54,7 @@ if __name__ == '__main__':
                         help='Input range image [.rimg]; e.g.) Carla/Town07/16_1024/1.rimg')
     parser.add_argument('-cp', '--checkpoint',
                         type=str,
-                        required=False,
-                        default=None,
+                        required=True,
                         help='Check point filename. [.pth]')
     parser.add_argument('-od', '--output_directory',
                         type=str,
