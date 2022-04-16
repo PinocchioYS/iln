@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>implicit_lidar_network</name>
+  <version>1.0.0</version>
+  <description>The Implicit LiDAR Network package</description>
+
+  <maintainer email="youngsun.kwon@kaist.ac.kr">yskwon</maintainer>
+  <license>BSD</license>
+
+  <url type="website">http://sgvr.kaist.ac.kr/publication/iln</url>
+  <url type="bugtracker">https://github.com/PinocchioYS/iln/issues</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>roscpp</build_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>pcl_ros</build_depend>
+
+  <build_export_depend>roscpp</build_export_depend>
+  <build_export_depend>rospy</build_export_depend>
+  <build_export_depend>sensor_msgs</build_export_depend>
+  <build_export_depend>pcl_ros</build_export_depend>
+
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>pcl_ros</exec_depend>
+
+</package>

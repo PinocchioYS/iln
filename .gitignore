@@ -1,0 +1,4 @@
+python_src/dataset/Carla
+python_src/models/trained
+python_src/.idea
+cmake-build-debug
