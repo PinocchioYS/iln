@@ -28,7 +28,6 @@ ADD_DEFINITIONS(-DOPENMP)
 
 
 catkin_package(
-    INCLUDE_DIRS include
 )
 
 include_directories(
