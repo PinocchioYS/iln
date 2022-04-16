@@ -47,7 +47,7 @@ def predict_detection_distances(input_image, pixel_centers, pred_batch=100000):
 
 if __name__ == '__main__':
     # Parse the arguments
-    parser = argparse.ArgumentParser(description="Demonstrate the LiDAR points reconstruction to a target resolution")
+    parser = argparse.ArgumentParser(description="Demonstrate the LiDAR image super-resolution to a target resolution")
     parser.add_argument('-i', '--input_filename',
                         type=str,
                         required=True,
