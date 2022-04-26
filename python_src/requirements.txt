@@ -1,0 +1,8 @@
+einops==0.4.1
+matplotlib==3.5.1
+numpy==1.22.3
+PyYAML==6.0
+rospy==1.15.14
+sensor_msgs==1.13.1
+torch==1.11.0+cu113
+tqdm==4.63.0
