@@ -3,19 +3,16 @@ project(implicit_lidar_network)
 
 
 SET(CMAKE_BUILD_TYPE Release)
-#SET(CMAKE_BUILD_TYPE Debug)
-ADD_COMPILE_OPTIONS(-std=c++11)
-if(CMAKE_BUILD_TYPE STREQUAL "Release")
-    ADD_COMPILE_OPTIONS(-O3)
-endif()
+SET(CMAKE_CXX_VERSION 11)
 
-## Find catkin macros and libraries
-find_package(catkin REQUIRED COMPONENTS
-    roscpp
-    rospy
-    sensor_msgs
-    pcl_ros
-)
+if(catkin_FOUND)
+	find_package(catkin REQUIRED COMPONENTS
+    	roscpp
+    	rospy
+    	sensor_msgs
+    	pcl_ros
+	)
+endif()
 
 FIND_PACKAGE(Eigen3 REQUIRED)
 
@@ -26,15 +23,14 @@ if(OPENMP_FOUND)
 endif()
 ADD_DEFINITIONS(-DOPENMP)
 
-
-catkin_package(
-)
-
-include_directories(
-    include
-    ${catkin_INCLUDE_DIRS}
-    ${EIGEN3_INCLUDE_DIR}
-)
+if(catkin_FOUND)
+	catkin_package()
+endif()
+	include_directories(
+    	include
+    	${catkin_INCLUDE_DIRS}
+    	${EIGEN3_INCLUDE_DIR}
+	)
 
 add_subdirectory(extern/pybind11)
 pybind11_add_module(voxelizer SHARED src/voxelizer.cpp)

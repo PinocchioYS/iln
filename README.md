@@ -17,19 +17,21 @@ Check the dependencies or install them in your environment using the command:
 
     pip3 install -r python_src/requirements.txt
 
-Our package uses the [Pybind11](https://github.com/pybind/pybind11) library to call several C++ voxelization functions from Python code.
-If you get this project by the "git clone", the Pybind11 source exists in the "extern" directory;
-otherwise you need to set the library manually. 
-Use these commands to build the voxelization module:
+Our package uses the [Pybind11](https://github.com/pybind/pybind11) library to call several C++ voxelization functions from Python code, and is included when cloning with the `--recursive` option: `git clone git@github.com:PinocchioYS/iln.git --recursive`
 
-    mkdir build
-    cd build
-    cmake ..
-    make
+Use these commands to build the voxelization module in a ROS workspace:
 
-You can use the "catkin_make" command if this package is located in the ROS build system.
-The "voxelizer.XXX.so" output file can be found in the "python_src" directory.
+    cd <your_catkin_repo>
+    git clone git@github.com:PinocchioYS/iln.git --recursive src/iln
+    catkin_make 
 
+Use these command to build the voxelization module *outside* or a ROS workspace:
+
+   git clone git@github.com:PinocchioYS/iln.git --recursive
+   mkdir build
+   cd build
+   cmake ..
+   make
 
 CARLA DATASET
 -------------
