@@ -56,3 +56,11 @@ You can download the model files from the [link](https://sgvr.kaist.ac.kr/~yskwo
     unzip trained.zip
 
 These commands make the pre-trained models into "python_src/models/trained" where our default model "iln_1d_400.pth" is located.
+
+VISUALIZATION
+-------------
+
+Visualization is supported with ROS in the `implicit_lidar_network` package:
+
+    usage: demo_resolution_free_lidar.py [-h] -i INPUT_FILENAME -cp CHECKPOINT [-v VOXEL_SIZE]
+    demo_resolution_free_lidar.py: error: the following arguments are required: -i/--input_filename, -cp/--checkpoint    
