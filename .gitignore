@@ -3,3 +3,5 @@ python_src/models/trained
 python_src/*.so
 python_src/.idea
 cmake-build-debug
+*.zip
+build
