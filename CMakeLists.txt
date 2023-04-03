@@ -6,12 +6,12 @@ SET(CMAKE_BUILD_TYPE Release)
 SET(CMAKE_CXX_VERSION 11)
 
 if(catkin_FOUND)
-	find_package(catkin REQUIRED COMPONENTS
-    	roscpp
-    	rospy
-    	sensor_msgs
-    	pcl_ros
-	)
+    find_package(catkin REQUIRED COMPONENTS
+        roscpp
+        rospy
+        sensor_msgs
+        pcl_ros
+    )
 endif()
 
 FIND_PACKAGE(Eigen3 REQUIRED)
@@ -24,13 +24,13 @@ endif()
 ADD_DEFINITIONS(-DOPENMP)
 
 if(catkin_FOUND)
-	catkin_package()
+    catkin_package()
 endif()
-	include_directories(
-    	include
-    	${catkin_INCLUDE_DIRS}
-    	${EIGEN3_INCLUDE_DIR}
-	)
+    include_directories(
+        include
+        ${catkin_INCLUDE_DIRS}
+        ${EIGEN3_INCLUDE_DIR}
+    )
 
 add_subdirectory(extern/pybind11)
 pybind11_add_module(voxelizer SHARED src/voxelizer.cpp)
