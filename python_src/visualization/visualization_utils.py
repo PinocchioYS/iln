@@ -65,7 +65,6 @@ def draw_range_image(range_image, colormap='rainbow', filename=None, vis_mask=No
     :param filename: output filename of range image
     :param vis_mask: boolean mask for visualization
     """
-    plt.clf()
     plt.figure()
 
     image = np.flip(range_image, axis=0)
