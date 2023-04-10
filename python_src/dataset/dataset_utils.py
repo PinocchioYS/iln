@@ -188,6 +188,63 @@ def range_image_to_points(range_image, lidar, remove_zero_range=True):
     return points
 
 
+def points_to_ranges(points):
+    """
+    Convert points in the sensor coordinate into the range data in spherical coordinate.
+
+    :param points: points in sensor coordinate
+    :return: the range data in spherical coordinate
+    """
+    # sensor coordinate
+    x = points[:, 0]
+    y = points[:, 1]
+    z = points[:, 2]
+
+    r = np.sqrt(x * x + y * y + z * z)
+    v = np.arctan2(z, np.sqrt(x * x + y * y))
+    h = np.arctan2(x, y)
+
+    return np.stack((v, h, r), axis=-1)
+
+
+def points_to_range_image(points, lidar):
+    """
+    Convert points in the sensor coordinate to a range image.
+
+    :param points: points in sensor coordinate
+    :param lidar: LiDAR specification
+    :return: range image of which a value has the range [0 ~ norm_r]
+    """
+    range_samples = points_to_ranges(points)
+
+    range_image = np.zeros([lidar['channels'], lidar['points_per_ring']], dtype=np.float32)
+    max_y = max(lidar['max_v'], np.max(range_samples[:, 0]))
+    min_y = min(lidar['min_v'], np.min(range_samples[:, 0]))
+    res_y = (max_y - min_y) / (lidar['channels']-1)  # include the last
+    res_x = (lidar['max_h'] - lidar['min_h']) / lidar['points_per_ring']              # exclude the last
+
+    # offset to match a point into a pixel center
+    range_samples[:, 0] += (res_y * 0.5)
+    range_samples[:, 1] += (res_x * 0.5)
+    # horizontal values are within [-pi, pi)
+    range_samples[range_samples[:, 1] < -np.pi, 1] += (2.0 * np.pi)
+    range_samples[range_samples[:, 1] >= np.pi, 1] -= (2.0 * np.pi)
+    # Pixel Index --> Ideally one pixel is assigned to one sample
+    py = np.trunc((range_samples[:, 0] - min_y) / res_y).astype(np.int)
+    # py = np.trunc((range_samples[:, 0] - lidar_spec['min_v']) / res_y).astype(np.int)
+    px = np.trunc((range_samples[:, 1] - lidar['min_h']) / res_x).astype(np.int)
+
+    # Insert the ranges
+    range_image[py, px] = range_samples[:, 2]
+
+    # Crop the values out of the detection range
+    range_image[range_image < 10e-10] = lidar['norm_r']
+    range_image[range_image < lidar['min_r']] = 0.0
+    range_image[range_image > lidar['max_r']] = lidar['norm_r']
+
+    return range_image
+
+
 def normalization_ranges(range_image, norm_r=100.0):
     """
     Normalize a range image: [0 ~ norm_r] --> [-1 ~ 1].
